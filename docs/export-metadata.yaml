@@ -1,0 +1,87 @@
+title: Arduino i praktiken
+subtitle: Din guide till Arduino och elektronikkretsar
+author: Erland Lindmark
+language: sv
+difficulty: experienced
+audience: Erfarna programmerare med viss Arduino-vana och viss erfarenhet av sensorer
+  och elektronikkretsar.
+book_type: handbook-reference
+edition: '1'
+version: plan-e-final-rubrikputs
+date: '2026-07-02'
+rights: All rights reserved
+publisher: ''
+cover_image: assets/cover/cover.png
+identifier: urn:uuid:7d66c957-1859-4121-9d17-1c2b7d60d396
+creator_role: aut
+subject: Arduino, elektronik, sensorer, aktuatorer, IC-kretsar
+description: En praktisk svensk handbok och referens om Arduino-kompatibla kort, elektronik,
+  sensorer, aktuatorer, IC-kretsar och vanliga moduler. Versionen är redaktionellt
+  konsoliderad efter PLAN-H och PLAN-E, slutputsad med konsekvent handboksidentitet
+  och rubrikputsad för tydligare kapitelordning, praktiska referensmönster, beslutsstöd,
+  riskkontroller och felsökningsstöd.
+project_slug: arduino-i-praktiken
+zip_naming:
+  initial: arduino-i-praktiken-projekt.zip
+  chapter_update: arduino-i-praktiken-projekt-kapitel-NN.zip
+  final_v2: arduino-i-praktiken-projekt-handbokstruktur-v2.zip
+  final_v3: arduino-i-praktiken-projekt-handbokstruktur-v3.zip
+  final_v4: arduino-i-praktiken-projekt-handbokstruktur-v4.zip
+  final_v5: arduino-i-praktiken-projekt-handbokstruktur-v5.zip
+chapters:
+- chapters/00-inledning.md
+- chapters/ekosystem-01.md
+- chapters/valja-ratt-kort-02.md
+- chapters/utvecklingsmiljo-bibliotek-03.md
+- chapters/elektriska-grunder-04.md
+- chapters/digital-io-05.md
+- chapters/analog-lasning-adc-06.md
+- chapters/pwm-timers-07.md
+- chapters/avbrott-watchdog-08.md
+- chapters/kommunikation-bussar-09.md
+- chapters/klassiska-arduino-kort-10.md
+- chapters/kloner-lagkostnadskort-11.md
+- chapters/moderna-arduino-kort-12.md
+- chapters/esp8266-nodemcu-13.md
+- chapters/esp32-familjen-14.md
+- chapters/raspberry-pi-pico-15.md
+- chapters/smakort-specialkort-16.md
+- chapters/led-rgb-ljuseffekter-17.md
+- chapters/adresserbara-led-18.md
+- chapters/buzzers-ljudsignaler-19.md
+- chapters/servon-motorer-20.md
+- chapters/relaer-mosfetar-laster-21.md
+- chapters/displayer-anvandargranssnitt-22.md
+- chapters/miljosensorer-23.md
+- chapters/ljus-farg-optiska-sensorer-24.md
+- chapters/avstand-narvaro-25.md
+- chapters/rorelse-orientering-26.md
+- chapters/ljud-mikrofoner-27.md
+- chapters/strom-spanning-energi-28.md
+- chapters/position-tid-identitet-29.md
+- chapters/io-expansion-30.md
+- chapters/drivkretsar-31.md
+- chapters/displaykretsar-minne-32.md
+- chapters/analog-signalanpassning-33.md
+- chapters/stromforsorjning-batteridrift-34.md
+- chapters/felsokning-35.md
+- chapters/breadboard-till-modul-36.md
+- chapters/modular-sensor-styrstation-37.md
+- chapters/referens-snabbvalsguider-38.md
+exports:
+  epub:
+    enabled: true
+    include_text_toc: false
+    airy_layout: true
+    render_markdown_styles: true
+    toc_depth: 1
+  pdf:
+    enabled: true
+    include_toc_before_introduction: true
+    render_markdown_styles: true
+    toc_depth: 3
+  docx:
+    enabled: true
+    render_markdown_styles: true
+  markdown:
+    enabled: true
