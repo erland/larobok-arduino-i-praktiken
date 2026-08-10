@@ -45,7 +45,7 @@ Den gör följande:
 1. installerar Python-beroendet `PyYAML`,
 2. kör projektvalidering,
 3. installerar låst Pandoc-version `3.1.11.1`,
-4. installerar XeLaTeX för PDF,
+4. installerar XeLaTeX och nödvändiga LaTeX-paket för PDF,
 5. bygger EPUB och PDF via `scripts/build_book.py`,
 6. publicerar ett gemensamt Actions-artifact: `arduino-i-praktiken-preview`.
 
@@ -70,3 +70,13 @@ Referenskitet var skapat för ett Romanskaparen-projekt. Det har därför anpass
 - Preview-artifact heter `arduino-i-praktiken-preview`.
 - Release-assets heter `arduino-i-praktiken.epub` och `arduino-i-praktiken.pdf`.
 - Valideringen är anpassad till Arduino-handbokens standard och kontrollerar inte romanprojektspecifika filer.
+
+## Korrigering: LaTeX-paket i GitHub Actions
+
+En tidig Preview-körning kunde falla på PDF-steget med felet `lmodern.sty not found`.
+Workflow-stegen för Preview och Release installerar därför även:
+
+- `lmodern`
+- `texlive-lang-european`
+
+`lmodern` behövs av Pandocs standardmall vid LaTeX/PDF-export. `texlive-lang-european` ger bättre marginal för svensk språk- och avstavningshantering.

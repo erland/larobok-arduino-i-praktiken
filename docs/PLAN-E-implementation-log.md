@@ -136,3 +136,15 @@ Genomfört:
 - Lagt till `scripts/build_book.py` som CI-lager ovanpå `scripts/export-book.py`.
 - Lagt till `docs/github-actions-publishing.md`.
 - Uppdaterat metadata, README och projektstatus.
+
+## GitHub Actions fix 1: PDF-beroenden i runner
+
+Datum: 2026-08-10
+
+Åtgärd:
+- Uppdaterade Preview- och Release-workflow så PDF-bygget installerar `lmodern`.
+- Lade till `texlive-lang-european` för svensk språk-/avstavningsmarginal i LaTeX-export.
+- Uppdaterade GitHub Actions-dokumentationen med orsaken till korrigeringen.
+
+Bakgrund:
+- Preview-workflow föll i GitHub Actions på `LaTeX Error: File lmodern.sty not found`.

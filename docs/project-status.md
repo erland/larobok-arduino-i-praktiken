@@ -6,12 +6,12 @@ Titel: Arduino i praktiken
 Undertitel: Din guide till Arduino och elektronikkretsar  
 Språk: Svenska  
 Författare: Erland Lindmark  
-Version: plan-e-final-rubrikputs-github-actions  
+Version: plan-e-final-rubrikputs-github-actions-fix1  
 Datum: 2026-08-10
 
 ## Nuvarande fas
 
-- GitHub Actions-publicering införd efter RUBRIKPUTS: metadata, README och projektstatus är uppdaterade till `plan-e-final-rubrikputs-github-actions`.
+- GitHub Actions-publicering införd efter RUBRIKPUTS: metadata, README och projektstatus är uppdaterade till `plan-e-final-rubrikputs-github-actions-fix1`.
 - `.github/` ligger i projektroten på samma nivå som `README.md`.
 - Workflows för Validate, Build Preview och Release har lagts till.
 - Kapitel 23, 27, 28, 36 och 37 har fått riktade rubrik- och ordningsjusteringar för tydligare kapitelstruktur.
@@ -474,3 +474,8 @@ PLAN-E är genomförd och slutkontrollerad. Exempeltäckningen är sammanfattad 
 ## 2026-07-02 – RUBRIKPUTS efter PLAN-E-final
 
 Riktad rubrikputs är genomförd efter helhetsgranskning av H1–H3. Kapitel 23, 27, 28, 36 och 37 har fått mindre rubrik- och ordningsjusteringar för tydligare slutstruktur och bättre konsekvens mellan snabbreferens, snabb sammanfattning, checklistor och projektkontroll. `build/book.md` är ombyggd och EPUB-export har skapats enligt projektstandard.
+
+
+## GitHub Actions korrigering
+
+Preview- och Release-workflows installerar nu `lmodern` och `texlive-lang-european` så PDF-export via XeLaTeX fungerar i GitHub Actions-runnern.
