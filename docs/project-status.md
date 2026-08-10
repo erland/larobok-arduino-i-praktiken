@@ -6,12 +6,15 @@ Titel: Arduino i praktiken
 Undertitel: Din guide till Arduino och elektronikkretsar  
 Språk: Svenska  
 Författare: Erland Lindmark  
-Version: plan-e-final-rubrikputs-github-actions-fix1  
+Version: plan-e-final-rubrikputs-github-actions-fix3  
 Datum: 2026-08-10
 
 ## Nuvarande fas
 
-- GitHub Actions-publicering införd efter RUBRIKPUTS: metadata, README och projektstatus är uppdaterade till `plan-e-final-rubrikputs-github-actions-fix1`.
+- PDF-exporten har uppdaterats så kapitelrubriker delas på två rader och varje kapitel börjar på ny sida.
+- Avståndet mellan kapitelnummer och kapitelnamn har minskats i både EPUB/PDF-export.
+- Genererade EPUB/PDF-filer hålls utanför projekt-zippen och skapas via GitHub Actions.
+- GitHub Actions-publicering införd efter RUBRIKPUTS: metadata, README och projektstatus är uppdaterade till `plan-e-final-rubrikputs-github-actions-fix3`.
 - `.github/` ligger i projektroten på samma nivå som `README.md`.
 - Workflows för Validate, Build Preview och Release har lagts till.
 - Kapitel 23, 27, 28, 36 och 37 har fått riktade rubrik- och ordningsjusteringar för tydligare kapitelstruktur.
@@ -47,6 +50,9 @@ Datum: 2026-07-01
 
 ## Nuvarande fas
 
+- PDF-exporten har uppdaterats så kapitelrubriker delas på två rader och varje kapitel börjar på ny sida.
+- Avståndet mellan kapitelnummer och kapitelnamn har minskats i både EPUB/PDF-export.
+- Genererade EPUB/PDF-filer hålls utanför projekt-zippen och skapas via GitHub Actions.
 - Post-v5 EPUB-export genomförd efter kapitel 1–38-justeringarna: markdownvalidering utan projektvarningar, `build/book.md` ombyggd och `exports/arduino-i-praktiken.epub` exporterad enligt projektstandard.
 - Post-v5-justering kapitel 17–21 genomförd: kurslika checklistor och dokumentationsmoment har tagits bort eller omformats, praktiska kontroller har behållits som handboksnära kontrollpunkter och `build/book.md` har byggts om.
 - `[PLAN-H]` steg H12 genomfört: exportkontroll, EPUB/PDF-export och versionssättning till `handbokstruktur-v5`. Ny stabil basversion: `arduino-i-praktiken-projekt-handbokstruktur-v5.zip`.

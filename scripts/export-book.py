@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import re
+import html
 import shutil
 import subprocess
 import sys
@@ -139,6 +140,123 @@ def build_markdown(metadata: dict, chapter_paths: list[Path]) -> Path:
     return out
 
 
+def build_epub_markdown(book_md: Path) -> Path:
+    """Skapa en EPUB-specifik markdownfil med delade kapitelrubriker.
+
+    Kapitelrubriker på formen "# 12. Kapitelnamn" renderas i EPUB som två rader:
+    kapitelnummer och kapitelnamn. Den ordinarie build/book.md lämnas oförändrad så
+    källmanus och andra exporter kan fortsätta använda vanlig markdown.
+    """
+    out = ROOT / "build" / "book-epub.md"
+    source = book_md.read_text(encoding="utf-8")
+
+    def replace(match: re.Match[str]) -> str:
+        number = match.group(1)
+        title = match.group(2).strip()
+        safe_title = html.escape(title, quote=False)
+        return (
+            f'# <span class="chapter-number">{number}.</span>'
+            f'<br />'
+            f'<span class="chapter-title">{safe_title}</span>'
+        )
+
+    transformed = re.sub(r"^#\s+(\d+)\.\s+(.+?)\s*$", replace, source, flags=re.MULTILINE)
+    out.write_text(transformed, encoding="utf-8")
+    return out
+
+
+def latex_escape(text: str) -> str:
+    """Escape minimal LaTeX-specialtecken i rubriktext för PDF-specifik markdown."""
+    replacements = {
+        "\\": r"\textbackslash{}",
+        "&": r"\&",
+        "%": r"\%",
+        "$": r"\$",
+        "#": r"\#",
+        "_": r"\_",
+        "{": r"\{",
+        "}": r"\}",
+    }
+    return "".join(replacements.get(ch, ch) for ch in text)
+
+
+def build_pdf_markdown(book_md: Path) -> Path:
+    """Skapa PDF-specifik markdown med typografiska H1-rubriker.
+
+    PDF-exporten behöver delade kapitelrubriker och sidbrytning före varje H1,
+    men TOC ska fortfarande visa kompakt kapitelrubrik på en rad. Detta görs med
+    raw LaTeX-kommandon i en tillfällig PDF-markdownfil. Källmanus och
+    build/book.md lämnas oförändrade.
+    """
+    out = ROOT / "build" / "book-pdf.md"
+    source = book_md.read_text(encoding="utf-8")
+
+    def replace_numbered(match: re.Match[str]) -> str:
+        number = latex_escape(match.group(1))
+        title = latex_escape(match.group(2).strip())
+        return f"\\ArduinoChapter{{{number}}}{{{title}}}"
+
+    def replace_unnumbered(match: re.Match[str]) -> str:
+        title = latex_escape(match.group(1).strip())
+        return f"\\ArduinoFrontChapter{{{title}}}"
+
+    transformed = re.sub(r"^#\s+(\d+)\.\s+(.+?)\s*$", replace_numbered, source, flags=re.MULTILINE)
+    transformed = re.sub(r"^#\s+([^#\n].+?)\s*$", replace_unnumbered, transformed, flags=re.MULTILINE)
+    out.write_text(transformed, encoding="utf-8")
+    return out
+
+
+def build_pdf_header(metadata: dict) -> Path:
+    """Skapa LaTeX-header för PDF-export."""
+    out = ROOT / "build" / "pdf-header.tex"
+    cover = metadata.get("cover_image")
+    cover_exists = bool(cover and (ROOT / cover).exists())
+    cover_path = str((ROOT / cover).resolve()).replace("\\", "/") if cover_exists else ""
+
+    cover_block = ""
+    if cover_exists:
+        cover_block = (
+            "\\AtBeginDocument{%\n"
+            "  \\thispagestyle{empty}%\n"
+            "  \\begin{center}%\n"
+            "  \\vspace*{0.5cm}%\n"
+            f"  \\includegraphics[width=0.92\\textwidth,height=0.88\\textheight,keepaspectratio]{{{cover_path}}}%\n"
+            "  \\end{center}%\n"
+            "  \\clearpage%\n"
+            "}%\n"
+        )
+
+    out.write_text(
+        "\\usepackage{graphicx}\n"
+        "\\usepackage{hyperref}\n"
+        "\n"
+        "% PDF-specifika kapitelkommandon. TOC-posten är kompakt, rubriken i flödet delas på två rader.\n"
+        "\\newcommand{\\ArduinoChapter}[2]{%\n"
+        "  \\clearpage%\n"
+        "  \\phantomsection%\n"
+        "  \\addcontentsline{toc}{section}{#1. #2}%\n"
+        "  \\begin{center}%\n"
+        "    {\\fontsize{19}{22}\\selectfont\\normalfont #1.}\\\\[-0.12em]%\n"
+        "    {\\fontsize{25}{29}\\selectfont\\bfseries #2}%\n"
+        "  \\end{center}%\n"
+        "  \\vspace{1.0em}%\n"
+        "}\n"
+        "\\newcommand{\\ArduinoFrontChapter}[1]{%\n"
+        "  \\clearpage%\n"
+        "  \\phantomsection%\n"
+        "  \\addcontentsline{toc}{section}{#1}%\n"
+        "  \\begin{center}%\n"
+        "    {\\fontsize{25}{29}\\selectfont\\bfseries #1}%\n"
+        "  \\end{center}%\n"
+        "  \\vspace{1.0em}%\n"
+        "}\n"
+        "\n"
+        f"{cover_block}",
+        encoding="utf-8",
+    )
+    return out
+
+
 def run_pandoc(args: list[str]) -> None:
     if shutil.which("pandoc") is None:
         raise RuntimeError("Pandoc saknas. Installera Pandoc och kör exporten igen.")
@@ -152,6 +270,9 @@ def patch_epub_nav(epub_path: Path) -> None:
     navigationen i spine som en vanlig lässida. Projektstandarden vill behålla
     nav.xhtml som EPUB-navigation men inte visa den som en vanlig textsida.
     Därför sätts nav-item i spine till linear="no" när den finns där.
+
+    EPUB-kapitelrubriker delas visuellt i brödtexten med span-element. I läsarens
+    navigations-TOC ska samma rubrik däremot visas kompakt som "12. Kapitelnamn".
     """
     with zipfile.ZipFile(epub_path, "r") as zf:
         names = zf.namelist()
@@ -166,21 +287,33 @@ def patch_epub_nav(epub_path: Path) -> None:
             return
 
         opf_name = opf_names[0]
+        nav_name = nav_names[0]
         opf_text = zf.read(opf_name).decode("utf-8")
+        nav_text = zf.read(nav_name).decode("utf-8")
 
     # Sätt itemref idref="nav" till linear="no" om det ligger i spine.
-    patched = re.sub(
+    patched_opf = re.sub(
         r'<itemref\s+idref="nav"\s*/>',
         '<itemref idref="nav" linear="no" />',
         opf_text,
     )
-    patched = re.sub(
+    patched_opf = re.sub(
         r'<itemref\s+idref="nav"\s+linear="yes"\s*/>',
         '<itemref idref="nav" linear="no" />',
-        patched,
+        patched_opf,
     )
 
-    if patched == opf_text:
+    def compact_nav_heading(match: re.Match[str]) -> str:
+        prefix, number, title, suffix = match.groups()
+        return f"{prefix}{number}. {title}{suffix}"
+
+    patched_nav = re.sub(
+        r'(<a\s+[^>]*>)<span class="chapter-number">(\d+)\.</span>\s*<br\s*/?>\s*<span class="chapter-title">([^<]+)</span>(</a>)',
+        compact_nav_heading,
+        nav_text,
+    )
+
+    if patched_opf == opf_text and patched_nav == nav_text:
         return
 
     tmp = epub_path.with_suffix(".tmp.epub")
@@ -188,7 +321,9 @@ def patch_epub_nav(epub_path: Path) -> None:
         for item in src.infolist():
             data = src.read(item.filename)
             if item.filename == opf_name:
-                data = patched.encode("utf-8")
+                data = patched_opf.encode("utf-8")
+            elif item.filename == nav_name:
+                data = patched_nav.encode("utf-8")
             dst.writestr(item, data)
 
     tmp.replace(epub_path)
@@ -198,8 +333,9 @@ def export_epub(metadata: dict, book_md: Path) -> Path:
     exports = ROOT / "exports"
     exports.mkdir(exist_ok=True)
     out = exports / "arduino-i-praktiken.epub"
+    epub_md = build_epub_markdown(book_md)
     cmd = [
-        "pandoc", str(book_md),
+        "pandoc", str(epub_md),
         "--from=gfm",
         "--to=epub3",
         "--toc",
@@ -223,18 +359,22 @@ def export_pdf(metadata: dict, book_md: Path) -> Path:
     exports = ROOT / "exports"
     exports.mkdir(exist_ok=True)
     out = exports / "arduino-i-praktiken.pdf"
+    pdf_toc_depth = int(((metadata.get("exports") or {}).get("pdf") or {}).get("toc_depth", 1))
+    pdf_md = build_pdf_markdown(book_md)
     cmd = [
-        "pandoc", str(book_md),
-        "--from=gfm",
+        "pandoc", str(pdf_md),
+        "--from=markdown+raw_tex",
         "--pdf-engine=xelatex",
         "--toc",
-        "--toc-depth=3",
+        f"--toc-depth={pdf_toc_depth}",
         f"--metadata=title:{metadata.get('title', '')}",
         f"--metadata=subtitle:{metadata.get('subtitle', '')}",
         f"--metadata=author:{metadata.get('author', '')}",
         f"--metadata=lang:{lang_tag(metadata)}",
         f"--output={out}",
     ]
+    pdf_header = build_pdf_header(metadata)
+    cmd.insert(-1, f"--include-in-header={pdf_header}")
     run_pandoc(cmd)
     return out
 
