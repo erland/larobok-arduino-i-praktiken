@@ -3,8 +3,8 @@
 **Undertitel:** Din guide till Arduino och elektronikkretsar  
 **Författare:** Erland Lindmark  
 **Språk:** Svenska  
-**Version:** plan-e-final-rubrikputs  
-**Datum:** 2026-07-02
+**Version:** plan-e-final-rubrikputs-github-actions  
+**Datum:** 2026-08-10
 
 Detta är projektmappen för boken *Arduino i praktiken*. Projektet är strukturerat för att kunna underhållas redaktionellt och exporteras lokalt till EPUB och PDF.
 
@@ -12,11 +12,24 @@ Detta är projektmappen för boken *Arduino i praktiken*. Projektet är struktur
 
 Denna zip är den rubrikputsade slutversionen efter genomförda `[PLAN]`, `[PLAN2]`, `[PLAN3]`, `[PLAN4]`, `[PLAN5]`, `[ANALYSPLAN]`, `[PLAN-H]`, post-v5-finputs, `[PLAN-E]` och riktad RUBRIKPUTS.
 
-- Projektversion: `arduino-i-praktiken-plan-e-final-rubrikputs.zip`
-- Version i metadata: `plan-e-final-rubrikputs`
-- Datum: 2026-07-02
+- Projektversion: `arduino-i-praktiken-plan-e-final-rubrikputs-github-actions.zip`
+- Version i metadata: `plan-e-final-rubrikputs-github-actions`
+- Datum: 2026-08-10
 
 Se `docs/final-puts-plan-e-final.md` och `docs/rubrikputs-plan-e-final.md`.
+
+
+## GitHub Actions-publicering
+
+Projektet innehåller nu GitHub Actions-stöd för validering, preview-byggen och release-publicering.
+
+- `.github/workflows/01-validate.yml` kör snabb validering vid pull request och push till `main`.
+- `.github/workflows/02-build-preview.yml` kan startas manuellt och bygger EPUB + PDF som ett gemensamt preview-artifact.
+- `.github/workflows/03-release.yml` körs på `v*`-taggar och publicerar EPUB och PDF som separata GitHub Release-assets.
+- Bygget använder projektets befintliga exportpipeline i `scripts/export-book.py`, med CI-lagret `scripts/build_book.py`.
+- Pandoc-versionen är låst till `3.1.11.1` i GitHub Actions.
+
+Se `docs/github-actions-publishing.md`.
 
 
 ## PLAN-H: redaktionell handbokskonsolidering

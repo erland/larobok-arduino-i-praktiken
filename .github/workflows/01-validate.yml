@@ -1,0 +1,45 @@
+name: Validate
+
+on:
+  pull_request:
+    paths:
+      - "chapters/**"
+      - "docs/**"
+      - "assets/**"
+      - "styles/**"
+      - "scripts/**"
+      - "book.yaml"
+      - "README.md"
+      - ".github/workflows/**"
+  push:
+    branches:
+      - main
+    paths:
+      - "chapters/**"
+      - "docs/**"
+      - "assets/**"
+      - "styles/**"
+      - "scripts/**"
+      - "book.yaml"
+      - "README.md"
+      - ".github/workflows/**"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Install Python dependencies
+        run: python3 -m pip install --upgrade PyYAML
+
+      - name: Validate project structure
+        run: python3 scripts/validate_project.py .
+
+      - name: Validate export metadata and Markdown
+        run: python3 scripts/export-book.py validate

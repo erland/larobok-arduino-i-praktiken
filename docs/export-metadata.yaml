@@ -7,8 +7,8 @@ audience: Erfarna programmerare med viss Arduino-vana och viss erfarenhet av sen
   och elektronikkretsar.
 book_type: handbook-reference
 edition: '1'
-version: plan-e-final-rubrikputs
-date: '2026-07-02'
+version: plan-e-final-rubrikputs-github-actions
+date: '2026-08-10'
 rights: All rights reserved
 publisher: ''
 cover_image: assets/cover/cover.png
@@ -19,7 +19,8 @@ description: En praktisk svensk handbok och referens om Arduino-kompatibla kort,
   sensorer, aktuatorer, IC-kretsar och vanliga moduler. Versionen är redaktionellt
   konsoliderad efter PLAN-H och PLAN-E, slutputsad med konsekvent handboksidentitet
   och rubrikputsad för tydligare kapitelordning, praktiska referensmönster, beslutsstöd,
-  riskkontroller och felsökningsstöd.
+  riskkontroller och felsökningsstöd. GitHub Actions-stöd har införts för validering,
+  preview-byggen och release-publicering av EPUB/PDF.
 project_slug: arduino-i-praktiken
 zip_naming:
   initial: arduino-i-praktiken-projekt.zip
@@ -28,6 +29,7 @@ zip_naming:
   final_v3: arduino-i-praktiken-projekt-handbokstruktur-v3.zip
   final_v4: arduino-i-praktiken-projekt-handbokstruktur-v4.zip
   final_v5: arduino-i-praktiken-projekt-handbokstruktur-v5.zip
+  github_actions: arduino-i-praktiken-plan-e-final-rubrikputs-github-actions.zip
 chapters:
 - chapters/00-inledning.md
 - chapters/ekosystem-01.md
