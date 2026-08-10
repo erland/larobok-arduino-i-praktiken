@@ -116,3 +116,16 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+
+h1 .chapter-number {
+  display: block;
+  font-size: 0.74em;
+  font-weight: normal;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.06em;
+}
+
+h1 .chapter-title {
+  display: block;
+}

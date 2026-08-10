@@ -148,3 +148,28 @@ Datum: 2026-08-10
 
 Bakgrund:
 - Preview-workflow föll i GitHub Actions på `LaTeX Error: File lmodern.sty not found`.
+
+## 2026-08-10 – GitHub Actions fix 2: exportformat och renare projekt-zip
+
+- EPUB-exporten har fått export-specifika delade kapitelrubriker: kapitelnummer och kapitelnamn visas på två rader.
+- PDF-exporten använder nu omslagsbild från `cover_image`.
+- PDF-innehållsförteckningen använder `toc_depth: 1`.
+- Genererade EPUB/PDF-filer tas inte längre med i projekt-zippen; de skapas av GitHub Actions.
+
+## 2026-08-10 – GitHub Actions fix 3: PDF-kapitelrubriker och sidbrytning
+
+Utgångspunkt: `arduino-i-praktiken-plan-e-final-rubrikputs-github-actions-fix2.zip`.
+
+Genomförda ändringar:
+
+- PDF-exporten renderar H1-rubriker på två rader: kapitelnummer och kapitelnamn.
+- Varje nytt kapitel börjar på ny sida i PDF.
+- Avståndet mellan kapitelnummer och kapitelnamn har minskats i PDF-rubriker.
+- EPUB-rubriker behåller två rader men med tätare avstånd mellan raderna.
+- PDF-TOC behåller endast första rubriknivån och kompakt kapitelrubrik.
+- Genererade EPUB/PDF-filer ska fortsatt inte ingå i projekt-zippen.
+
+Kontroll:
+
+- Exportpipelinen validerar manus före export.
+- GitHub Actions kan skapa EPUB/PDF som preview- och release-artifacts.

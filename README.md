@@ -3,7 +3,7 @@
 **Undertitel:** Din guide till Arduino och elektronikkretsar  
 **Författare:** Erland Lindmark  
 **Språk:** Svenska  
-**Version:** plan-e-final-rubrikputs-github-actions-fix1  
+**Version:** plan-e-final-rubrikputs-github-actions-fix3  
 **Datum:** 2026-08-10
 
 Detta är projektmappen för boken *Arduino i praktiken*. Projektet är strukturerat för att kunna underhållas redaktionellt och exporteras lokalt till EPUB och PDF.
@@ -12,11 +12,13 @@ Detta är projektmappen för boken *Arduino i praktiken*. Projektet är struktur
 
 Denna zip är den rubrikputsade slutversionen efter genomförda `[PLAN]`, `[PLAN2]`, `[PLAN3]`, `[PLAN4]`, `[PLAN5]`, `[ANALYSPLAN]`, `[PLAN-H]`, post-v5-finputs, `[PLAN-E]` och riktad RUBRIKPUTS.
 
-- Projektversion: `arduino-i-praktiken-plan-e-final-rubrikputs-github-actions-fix1.zip`
-- Version i metadata: `plan-e-final-rubrikputs-github-actions-fix1`
+- Projektversion: `arduino-i-praktiken-plan-e-final-rubrikputs-github-actions-fix3.zip`
+- Version i metadata: `plan-e-final-rubrikputs-github-actions-fix3`
 - Datum: 2026-08-10
 
-Se `docs/final-puts-plan-e-final.md` och `docs/rubrikputs-plan-e-final.md`.
+Se `docs/final-puts-plan-e-final.md`, `docs/rubrikputs-plan-e-final.md` och `docs/github-actions-fix-pdf-chapter-headings.md`.
+
+PDF-exporten delar kapitelrubriker typografiskt på två rader och tvingar varje nytt kapitel till ny sida. EPUB-exporten använder samma två-radiga kapitelrubrik i kapiteltexten men behåller kompakt TOC.
 
 
 ## GitHub Actions-publicering

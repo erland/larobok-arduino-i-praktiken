@@ -7,7 +7,7 @@ audience: Erfarna programmerare med viss Arduino-vana och viss erfarenhet av sen
   och elektronikkretsar.
 book_type: handbook-reference
 edition: '1'
-version: plan-e-final-rubrikputs-github-actions-fix1
+version: plan-e-final-rubrikputs-github-actions-fix3
 date: '2026-08-10'
 rights: All rights reserved
 publisher: ''
@@ -29,7 +29,7 @@ zip_naming:
   final_v3: arduino-i-praktiken-projekt-handbokstruktur-v3.zip
   final_v4: arduino-i-praktiken-projekt-handbokstruktur-v4.zip
   final_v5: arduino-i-praktiken-projekt-handbokstruktur-v5.zip
-  github_actions: arduino-i-praktiken-plan-e-final-rubrikputs-github-actions-fix1.zip
+  github_actions: arduino-i-praktiken-plan-e-final-rubrikputs-github-actions-fix3.zip
 chapters:
 - chapters/00-inledning.md
 - chapters/ekosystem-01.md
@@ -81,7 +81,7 @@ exports:
     enabled: true
     include_toc_before_introduction: true
     render_markdown_styles: true
-    toc_depth: 3
+    toc_depth: 1
   docx:
     enabled: true
     render_markdown_styles: true

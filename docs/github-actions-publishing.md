@@ -80,3 +80,10 @@ Workflow-stegen för Preview och Release installerar därför även:
 - `texlive-lang-european`
 
 `lmodern` behövs av Pandocs standardmall vid LaTeX/PDF-export. `texlive-lang-european` ger bättre marginal för svensk språk- och avstavningshantering.
+## Exportformat efter fix 3
+
+- EPUB och PDF byggs av GitHub Actions, inte genom att färdiga exportfiler lagras i projekt-zippen.
+- EPUB visar kapitelnummer och kapitelnamn på två rader i kapiteltexten, men TOC-posten är kompakt.
+- PDF visar också kapitelnummer och kapitelnamn på två rader i kapiteltexten.
+- PDF startar varje nytt kapitel på ny sida.
+- PDF-innehållsförteckningen använder endast första rubriknivån.
