@@ -120,3 +120,19 @@ Kontroll:
 - Tydliggjorde skillnaden mellan tidig modulchecklista och avslutande slutkontroll i kapitel 36.
 - Flyttade `Kontroll före nästa version` före `Snabbreferens` i kapitel 37.
 - Uppdaterade metadata till `plan-e-final-rubrikputs`.
+
+
+## Efter PLAN-E: GitHub Actions-publicering
+
+Datum: 2026-08-10  
+Version: `plan-e-final-rubrikputs-github-actions`
+
+Genomfört:
+
+- Infört `.github/workflows/01-validate.yml`.
+- Infört `.github/workflows/02-build-preview.yml`.
+- Infört `.github/workflows/03-release.yml`.
+- Lagt till `scripts/validate_project.py` som deterministisk CI-validerare för projektets faktiska struktur.
+- Lagt till `scripts/build_book.py` som CI-lager ovanpå `scripts/export-book.py`.
+- Lagt till `docs/github-actions-publishing.md`.
+- Uppdaterat metadata, README och projektstatus.

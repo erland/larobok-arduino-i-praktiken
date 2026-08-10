@@ -6,12 +6,14 @@ Titel: Arduino i praktiken
 Undertitel: Din guide till Arduino och elektronikkretsar  
 Språk: Svenska  
 Författare: Erland Lindmark  
-Version: plan-e-final-rubrikputs  
-Datum: 2026-07-02
+Version: plan-e-final-rubrikputs-github-actions  
+Datum: 2026-08-10
 
 ## Nuvarande fas
 
-- RUBRIKPUTS efter PLAN-E-final genomförd: metadata, README och projektstatus är uppdaterade till `plan-e-final-rubrikputs`.
+- GitHub Actions-publicering införd efter RUBRIKPUTS: metadata, README och projektstatus är uppdaterade till `plan-e-final-rubrikputs-github-actions`.
+- `.github/` ligger i projektroten på samma nivå som `README.md`.
+- Workflows för Validate, Build Preview och Release har lagts till.
 - Kapitel 23, 27, 28, 36 och 37 har fått riktade rubrik- och ordningsjusteringar för tydligare kapitelstruktur.
 - FINAL-PUTS efter PLAN-E är fortsatt bas för handboksidentitet, språkputs och EPUB-standard.
 - Inledningen har justerats så boken konsekvent presenteras som praktisk handbok och referens.
@@ -19,6 +21,7 @@ Datum: 2026-07-02
 - Kvarvarande `experiment`-språk har putsats selektivt där det gav kurs-/labbkänsla. Tekniskt rimliga användningar kan finnas kvar när de beskriver test, prototyp, experimentell modul eller utforskande arbete.
 - `build/book.md` har byggts om.
 - EPUB-export har skapats enligt projektstandard.
+- GitHub Actions bygger preview-artifact med EPUB och PDF samt release-assets på `v*`-taggar.
 
 ## Senaste kontroller
 

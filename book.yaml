@@ -6,8 +6,8 @@ difficulty: experienced
 audience: Erfarna programmerare med viss Arduino-vana och viss erfarenhet av sensorer
   och elektronikkretsar.
 book_type: handbook-reference
-version: plan-e-final-rubrikputs
-date: '2026-07-02'
+version: plan-e-final-rubrikputs-github-actions
+date: '2026-08-10'
 identifier: urn:uuid:7d66c957-1859-4121-9d17-1c2b7d60d396
 project_slug: arduino-i-praktiken
 chapters:
